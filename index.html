@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Risco SPDA | Senai-Civit</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+    <!DOCTYPE html>
+    <html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Avaliação de Risco de Descarga</title>
+    </head>
+
+    <body>
+
+        <h1>Avaliação de Risco de Descarga</h1>
+
+        <form>
+
+            <fieldset>
+                <legend>Parâmetros da Estrutura</legend>
+
+                <label for="NG">NG: Descargas/km²/ano</label>
+                <input type="number" id="NG" name="NG" step="0.01"><br><br>
+
+                <label for="L">L: Comprimento (m)</label>
+                <input type="number" id="L" name="L"><br><br>
+
+                <label for="W">W: Largura (m)</label>
+                <input type="number" id="W" name="W"><br><br>
+
+                <label for="H">H: Altura (m)</label>
+                <input type="number" id="H" name="H"><br><br>
+
+                <label for="CD">CD: Fator de correção</label>
+                <input type="number" id="CD" name="CD" value="1" step="0.01"><br><br>
+            </fieldset>
+
+            <br>
+
+            <fieldset>
+
+                <label for="tipoRisco">Selecione o tipo de risco:</label>
+                <select id="tipoRisco">
+                    <option value="RA">Perda de vidas humanas (RA)</option>
+                    <option value="RB">Perda de serviço público essencial (RB)</option>
+                    <option value="RC">Perda de patrimônio cultural (RC)</option>
+                    <option value="RM">Perda de valores econômicos (RM)</option>
+                </select>
+
+                <legend>Cálculo de Risco (R)</legend>
+
+                <label for="PA">PA: Perda de Vida Humana</label>
+                <input type="number" id="PA" name="PA"><br><br>
+
+                <label for="PB">PB: Perda de Serviço Público Essencial</label>
+                <input type="number" id="PB" name="PB"><br><br>
+
+                <label for="PC">PC: Perda de Patrimônio Cultural</label>
+                <input type="number" id="PC" name="PC"><br><br>
+
+                <label for="PM">PM: Perda de Valores Econômicos</label>
+                <input type="number" id="PM" name="PM"><br><br>
+            </fieldset>
+
+            <br>
+
+            <fieldset>
+                <legend>Cálculo da Probabilidade de Dano - Níveis de Proteção</legend>
+
+                <label for="LA">LA: Nível de proteção A</label>
+                <input type="number" id="LA" name="LA"><br><br>
+
+                <label for="LB">LB: Nível de proteção B</label>
+                <input type="number" id="LB" name="LB"><br><br>
+
+                <label for="LC">LC: Nível de proteção C</label>
+                <input type="number" id="LC" name="LC"><br><br>
+
+                <label for="LM">LM: Nível de proteção M</label>
+                <input type="number" id="LM" name="LM"><br><br>
+            </fieldset>
+
+        </form>
+
+    </body>
+
+    </html>
+
+
+    <button onclick="Calcular()">Fazer calculo</button>
+
+    <p id="resultado"></p>
+    
+
+
+    <script src="./script.js"></script>
+
+</body>
+
+</html>

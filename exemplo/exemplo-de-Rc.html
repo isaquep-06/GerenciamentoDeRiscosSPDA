@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Protótipo RA, RC, RM</title>
+<style>
+  body{font-family:Arial, sans-serif; max-width:820px; margin:24px auto; line-height:1.4}
+  fieldset{margin-bottom:14px; padding:12px}
+  label{display:block; margin:6px 0 2px}
+  input{width:160px; padding:6px}
+  .row{display:flex; gap:24px; flex-wrap:wrap}
+  button{padding:10px 14px; cursor:pointer}
+  .out{background:#f7f7f7; padding:12px; border:1px solid #ddd; margin-top:10px}
+</style>
+</head>
+<body>
+
+<h2>Protótipo de Riscos Parciais: RA, RC, RM</h2>
+
+<fieldset>
+  <legend>Eventos (N)</legend>
+  <div class="row">
+    <div>
+      <label>ND (descargas na estrutura)</label>
+      <input type="number" id="ND" step="0.000001" value="0.03093">
+    </div>
+    <div>
+      <label>NM (descargas próximas)</label>
+      <input type="number" id="NM" step="0.000001" value="0.005">
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Probabilidades (P) — insira como frações (0 a 1)</legend>
+  <div class="row">
+    <div>
+      <label>PA (ex.: PTA×PB)</label>
+      <input type="number" id="PA" step="0.001" value="0.2">
+    </div>
+    <div>
+      <label>PC (ex.: PSPD×CLD)</label>
+      <input type="number" id="PC" step="0.001" value="0.05">
+    </div>
+    <div>
+      <label>PM (ex.: PTU×PEB×PLD×CLD)</label>
+      <input type="number" id="PM" step="0.001" value="0.1">
+    </div>
+  </div>
+  <small>Dica: depois você pode trocar esses inputs por selects que multiplicam fatores.</small>
+</fieldset>
+
+<fieldset>
+  <legend>Perdas (L) — modelo genérico L = LO × (nZ/nt) × (tz/8760)</legend>
+  <div class="row">
+    <div>
+      <strong>LA</strong>
+      <label>LO_A</label><input type="number" id="LO_A" step="0.01" value="1.0">
+      <label>nZ_A</label><input type="number" id="nZ_A" step="1" value="10">
+      <label>nt_A</label><input type="number" id="nt_A" step="1" value="100">
+      <label>tz_A (h/ano)</label><input type="number" id="tz_A" step="1" value="2000">
+    </div>
+    <div>
+      <strong>LC</strong>
+      <label>LO_C</label><input type="number" id="LO_C" step="0.01" value="0.6">
+      <label>nZ_C</label><input type="number" id="nZ_C" step="1" value="10">
+      <label>nt_C</label><input type="number" id="nt_C" step="1" value="100">
+      <label>tz_C (h/ano)</label><input type="number" id="tz_C" step="1" value="2000">
+    </div>
+    <div>
+      <strong>LM</strong>
+      <label>LO_M</label><input type="number" id="LO_M" step="0.01" value="0.3">
+      <label>nZ_M</label><input type="number" id="nZ_M" step="1" value="10">
+      <label>nt_M</label><input type="number" id="nt_M" step="1" value="100">
+      <label>tz_M (h/ano)</label><input type="number" id="tz_M" step="1" value="2000">
+    </div>
+  </div>
+</fieldset>
+
+<button onclick="calcular()">Calcular RA, RC, RM</button>
+
+<div class="out" id="saida"></div>
+
+<script>
+function L(LO, nZ, nt, tz){
+  // L = LO × (nZ/nt) × (tz/8760)
+  return LO * (nZ/nt) * (tz/8760);
+}
+
+function calcular(){
+  // Eventos
+  const ND = parseFloat(document.getElementById('ND').value);
+  const NM = parseFloat(document.getElementById('NM').value);
+
+  // Probabilidades
+  const PA = parseFloat(document.getElementById('PA').value);
+  const PC = parseFloat(document.getElementById('PC').value);
+  const PM = parseFloat(document.getElementById('PM').value);
+
+  // Perdas
+  const LA = L(
+    parseFloat(document.getElementById('LO_A').value),
+    parseFloat(document.getElementById('nZ_A').value),
+    parseFloat(document.getElementById('nt_A').value),
+    parseFloat(document.getElementById('tz_A').value),
+  );
+  const LC = L(
+    parseFloat(document.getElementById('LO_C').value),
+    parseFloat(document.getElementById('nZ_C').value),
+    parseFloat(document.getElementById('nt_C').value),
+    parseFloat(document.getElementById('tz_C').value),
+  );
+  const LM = L(
+    parseFloat(document.getElementById('LO_M').value),
+    parseFloat(document.getElementById('nZ_M').value),
+    parseFloat(document.getElementById('nt_M').value),
+    parseFloat(document.getElementById('tz_M').value),
+  );
+
+  // Riscos parciais
+  const RA = ND * PA * LA;
+  const RC = ND * PC * LC;
+  const RM = NM * PM * LM;
+
+  const fmt = (x) => Number.isFinite(x) ? x.toExponential(6) : '—';
+
+  document.getElementById('saida').innerHTML = `
+    <b>Perdas (L):</b><br>
+    LA = ${fmt(LA)} | LC = ${fmt(LC)} | LM = ${fmt(LM)}<br><br>
+    <b>Riscos parciais:</b><br>
+    RA = <b>${fmt(RA)}</b><br>
+    RC = <b>${fmt(RC)}</b><br>
+    RM  = <b>${fmt(RM)}</b>
+  `;
+}
+</script>
+
+</body>
+</html>

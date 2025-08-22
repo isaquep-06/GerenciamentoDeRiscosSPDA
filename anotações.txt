@@ -1,0 +1,45 @@
+
+exemplos de calculo para se usar depois
+Calculo de risco
+  const RA = ND * PA * LA;
+  const RC = ND  * PC * LC;
+  const RM = NM * PM * LM;
+
+
+
+
+
+Descargas na estrutura ND
+  let ND = NG * AD * CD * 1e-6;
+
+
+
+
+Descargas proximas | EXEMPLO VALOR FICTICIO
+  let AM = 5000;
+  let NM = NG * AM * CD * 1e-6;
+
+
+
+
+Função de perdas
+  function LF(LO,nZ, nt, tz) {
+      return LO * (nZ/nt) * (tx/8760);
+  }
+
+
+
+
+
+Exemplo de perdas
+  let LA = Lf(1.0, 10, 100, 2000);
+  let LC = Lf(0.6, 10, 100, 2000);
+  let LM = Lf(0.3, 10, 100, 2000);
+
+
+
+
+
+Riscos parciais
+
+  let PA = 0.2, PC = 0.05, PM = 0.1;

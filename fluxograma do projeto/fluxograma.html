@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fluxograma SPDA – Protótipo</title>
+  <style>
+    :root{
+      --bg:#0b0f16;--panel:#121826;--card:#171f2f;--text:#e6eefc;--muted:#9fb2d1;--accent:#6aa6ff;--good:#20c997;--warn:#ffb020;
+      --radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial; background:linear-gradient(180deg,#0b0f16,#0a0d14 60%); color:var(--text)}
+    .wrap{max-width:1100px;margin:40px auto;padding:24px}
+    h1{font-size:clamp(22px,3vw,32px);margin:0 0 8px}
+    p.lead{color:var(--muted);margin:0 0 24px}
+
+    .board{background:var(--panel);border:1px solid #1e2636;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+
+    /* Flow layout */
+    .flow{display:grid;grid-template-columns:1fr 60px 1fr 60px 1fr;gap:16px;align-items:center}
+    .card{background:var(--card);border:1px solid #22304a;border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px;font-size:18px}
+    .card p{margin:0;color:var(--muted);line-height:1.45}
+    .pill{display:inline-block;border:1px solid #2a3a58;border-radius:999px;padding:4px 10px;font-size:12px;color:#cbd7ee;background:#0f1522;margin-right:6px}
+
+    .arrow{display:flex;align-items:center;justify-content:center}
+    .arrow svg{width:52px;height:52px;opacity:.85}
+
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+    .kpi{background:#0e1524;border:1px solid #21314e;border-radius:14px;padding:10px 12px}
+    .kpi strong{display:block;color:#cfe2ff}
+    .kpi span{color:var(--muted);font-size:12px}
+
+    .result.good{border-color:#175a46;background:linear-gradient(180deg,#0e1e1a,#0b1512)}
+    .result.warn{border-color:#5a4a17;background:linear-gradient(180deg,#1e1a0e,#15120b)}
+
+    .foot{margin-top:20px;color:var(--muted);font-size:13px}
+
+    /* Responsive */
+    @media (max-width:940px){
+      .flow{grid-template-columns:1fr;}
+      .arrow{transform:rotate(90deg)}
+    }
+    code{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0d1320;border:1px solid #22304a;padding:2px 6px;border-radius:6px;color:#d7e6ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Fluxograma do Protótipo de Cálculos (SPDA)</h1>
+    <p class="lead">Visual de alto nível do fluxo que você vai programar: <em>Inputs → Cálculos → Comparação → Resultado</em>.</p>
+
+    <section class="board">
+      <div class="flow">
+        <!-- Col 1 -->
+        <div class="card">
+          <h3>1) Entrada de Dados</h3>
+          <p>
+            <span class="pill">NG</span>
+            <span class="pill">L</span>
+            <span class="pill">W</span>
+            <span class="pill">H</span>
+            <span class="pill">CD</span>
+          </p>
+          <p style="margin-top:8px">Usuário informa os valores no formulário.</p>
+        </div>
+        <div class="arrow">
+          <!-- right arrow -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 12h15"/><path d="m15 5 7 7-7 7"/>
+          </svg>
+        </div>
+
+        <!-- Col 3 -->
+        <div class="card">
+          <h3>2) Cálculos</h3>
+          <p><strong>AD</strong> = <code>(L×W) + 2×(3×H)×(L+W) + π×(3×H)²</code></p>
+          <p><strong>ND</strong> = <code>NG × AD × CD × 1e-6</code></p>
+          <div class="kpis">
+            <div class="kpi"><strong>AD</strong><span>Área exposta</span></div>
+            <div class="kpi"><strong>ND</strong><span>Descargas estimadas</span></div>
+            <div class="kpi"><strong>RT</strong><span>Limite</span></div>
+            <div class="kpi"><strong>ND vs RT</strong><span>Comparação</span></div>
+          </div>
+        </div>
+        <div class="arrow">
+          <!-- right arrow -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 12h15"/><path d="m15 5 7 7-7 7"/>
+          </svg>
+        </div>
+
+        <!-- Col 5 -->
+        <div class="card result warn">
+          <h3>3) Resultado</h3>
+          <p>Se <code>ND &gt; RT</code> → <strong>⚠️ Necessita proteção</strong></p>
+          <p>Se <code>ND ≤ RT</code> → <strong>✅ Estrutura protegida</strong></p>
+          <p style="margin-top:8px">RT (vida humana) padrão usado no protótipo: <code>0.00001</code></p>
+        </div>
+      </div>
+
+      <div class="foot">
+        Dica: programe cada bloco como uma função JS independente: <code>coletarInputs()</code>, <code>calcularAD()</code>, <code>calcularND()</code>, <code>compararComRT()</code>, <code>renderResultado()</code>. Assim fica fácil de expandir depois (NL, NI, R1...R4).
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    padding: 20px;
+}
+
+/* Título principal */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #003366;
+}
+
+/* Formulário e campos */
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fieldsets */
+fieldset {
+    border: 1px solid #ccc;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    background-color: #fefefe;
+}
+
+legend {
+    font-weight: bold;
+    color: #0055aa;
+    padding: 0 10px;
+}
+
+/* Labels e inputs */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Botão */
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 30px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Resultado */
+#resultado {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 15px 20px;
+    background-color: #e8f0fe;
+    border-left: 6px solid #007bff;
+    font-size: 16px;
+    border-radius: 6px;
+    line-height: 1.6;
+}
